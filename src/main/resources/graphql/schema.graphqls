@@ -1,0 +1,38 @@
+type Subject {
+  id: ID
+  name: String
+  topics: [Topic]
+}
+
+type Topic {
+  id: ID
+  name: String
+  parent: Topic
+  children: [Topic]
+  flashcards: [Flashcard]
+}
+
+type Flashcard {
+  id: ID
+  question: String
+  answer: String
+  hint: String
+  difficulty: String
+  topic: Topic
+}
+type Mutation {
+  createFlashcard(
+    topicId: ID!
+    question: String!
+    answer: String!
+    hint: String
+    difficulty: String!
+  ): Flashcard
+}
+
+
+type Query {
+  subjects: [Subject]
+  flashcards(topicId: ID, difficulty: String): [Flashcard]
+  topicPath(topicId: ID): [Topic]
+}
